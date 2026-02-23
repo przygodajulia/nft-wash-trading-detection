@@ -1,0 +1,9 @@
+pandas
+numpy
+requests
+pyarrow
+matplotlib
+seaborn
+jupyterlab
+tenacity
+networkx
