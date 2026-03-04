@@ -12,21 +12,20 @@ COLLECTIONS = ["boredapeyachtclub", "cryptopunks", "pudgypenguins"]
 
 # Fields to keep for wash trading analysis
 RELEVANT_FIELDS = [
-    "event_type",
     "event_timestamp",
+    "closing_date",
     "transaction",           # transaction hash
     "chain",
     "seller",                # seller address
     "buyer",                 # buyer address
-    "from_address",          # for transfer events
-    "to_address",            # for transfer events
-    "transfer_type",         # for transfer events
+    "quantity"
     "nft.identifier",        # token ID
     "nft.name",              # NFT name
     "nft.contract",          # contract address
     "nft.collection",        # collection slug
     "payment.quantity",      # token amount
     "payment.symbol",        # token symbol
-    "payment.decimals"       # token decimals
+    "payment.decimals",       # token decimals
+    "payment.token_address"
 ]
 
