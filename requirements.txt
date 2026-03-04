@@ -7,3 +7,6 @@ seaborn
 jupyterlab
 tenacity
 networkx
+python-dotenv
+notebook
+ipykernel
