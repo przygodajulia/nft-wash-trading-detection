@@ -13,9 +13,33 @@ from src.extraction.config import (
 )
 from src.extraction.opensea_client import OpenSeaClient
 
+
 logging.basicConfig(level=logging.INFO)
 
-def extract_collection(client: OpenSeaClient, collection_slug: str):
+
+def extract_collection(client: OpenSeaClient, collection_slug: str) -> None:
+    """
+    Extracts NFT event data for a single OpenSea collection and saves the
+    paginated API responses as JSON files.
+
+    The function requests events for the selected collection within the time
+    range defined in the extraction configuration. It follows OpenSea pagination
+    using the cursor returned by the API and stores each page of results in a
+    separate JSON file.
+
+    Parameters
+    ----------
+    client : OpenSeaClient
+        Initialized OpenSea API client used to request collection events.
+    collection_slug : str
+        OpenSea collection slug identifying the NFT collection to extract.
+
+    Returns
+    -------
+    None
+        The function saves extracted event data to disk and does not return
+        any value.
+    """
     os.makedirs(f"{RAW_DATA_DIR}/{collection_slug}", exist_ok=True)
 
     cursor = None
@@ -36,6 +60,7 @@ def extract_collection(client: OpenSeaClient, collection_slug: str):
             break
 
         output_path = f"{RAW_DATA_DIR}/{collection_slug}/page_{page}.json"
+
         with open(output_path, "w") as f:
             json.dump(events, f, indent=2)
 
@@ -48,7 +73,25 @@ def extract_collection(client: OpenSeaClient, collection_slug: str):
         page += 1
 
 
-def main():
+def main() -> None:
+    """
+    Runs the OpenSea data extraction process for all configured NFT collections.
+
+    The function loads environment variables from the `.env` file, retrieves the
+    OpenSea API key, initializes the API client, and iterates over all collection
+    slugs defined in the extraction configuration.
+
+    Raises
+    ------
+    RuntimeError
+        If the `OPENSEA_API_KEY` variable is missing from the environment.
+
+    Returns
+    -------
+    None
+        The function coordinates the extraction process and saves results to
+        disk through `extract_collection`.
+    """
     load_dotenv()
     api_key = os.getenv("OPENSEA_API_KEY")
 

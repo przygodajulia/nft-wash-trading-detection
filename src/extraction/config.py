@@ -1,7 +1,7 @@
 # Contains parameters needed for data extraction
 from datetime import datetime
 
-# Collections analyzed in the thesis
+# Collections analyzed
 COLLECTION_SLUGS = [
     "cryptopunks",
     "pudgypenguins",
